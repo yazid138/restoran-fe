@@ -15,6 +15,7 @@
     "@mui/material": "^7.3.7",
     "@mui/material-nextjs": "^7.3.7",
     "@tanstack/react-table": "^8.21.3",
+    "axios": "^1.13.4",
     "formik": "^2.4.9",
     "next": "16.1.6",
     "next-auth": "^4.24.13",
