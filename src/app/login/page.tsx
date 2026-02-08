@@ -13,7 +13,6 @@ import {
   Alert,
   CircularProgress,
 } from "@mui/material";
-import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 
 // Validation schema using Yup
@@ -25,7 +24,6 @@ const validationSchema = Yup.object({
 });
 
 export default function LoginPage() {
-  const router = useRouter();
   const [error, setError] = useState<string>("");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -50,8 +48,7 @@ export default function LoginPage() {
           setError(result.error);
         } else if (result?.ok) {
           // Redirect to home page on success
-          router.push("/");
-          router.refresh();
+          location.href = "/";
         }
       } catch (err) {
         console.error("Login error:", err);
@@ -157,18 +154,6 @@ export default function LoginPage() {
                 "Masuk"
               )}
             </Button>
-
-            <Typography variant="body2" align="center" color="text.secondary">
-              Belum punya akun?{" "}
-              <Button
-                variant="text"
-                size="small"
-                onClick={() => router.push("/register")}
-                disabled={isLoading}
-              >
-                Daftar di sini
-              </Button>
-            </Typography>
           </form>
         </Paper>
       </Container>

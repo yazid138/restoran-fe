@@ -1,5 +1,6 @@
 import { DefaultSession, NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import { axiosServices } from "./axios";
 import axios from "axios";
 
 declare module "next-auth" {
@@ -51,23 +52,16 @@ export const authConfig: NextAuthOptions = {
         password: { label: "Password", type: "password" },
       },
       authorize: async (credentials) => {
-        const API_URL = process.env.NEXT_PUBLIC_API_URL;
-
         if (!credentials?.email || !credentials?.password) {
           throw new Error("Email dan password wajib diisi");
         }
 
         try {
-          const { data } = await axios.post<LoginResponse>(
-            `${API_URL}/auth/login`,
+          const { data } = await axiosServices.post<LoginResponse>(
+            "/auth/login",
             {
               email: credentials.email,
               password: credentials.password,
-            },
-            {
-              headers: {
-                "Content-Type": "application/json",
-              },
             },
           );
 
