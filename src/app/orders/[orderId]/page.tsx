@@ -412,11 +412,6 @@ export default function OrderPage() {
                   ? handleCloseOrderClick
                   : undefined
               }
-              onPrintReceipt={
-                isCashier
-                  ? () => generateReceipt(order, session?.user)
-                  : undefined
-              }
             />
           </Grid>
         </Grid>

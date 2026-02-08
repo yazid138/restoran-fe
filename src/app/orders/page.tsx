@@ -244,7 +244,7 @@ export default function OrdersPage() {
                           }}
                         >
                           {/* Waiter/Cashier can view active orders */}
-                          {order.status === "open" && (
+                          {!isCashier && order.status === "open" && (
                             <IconButton
                               color="primary"
                               onClick={() => handleViewOrder(order.id)}

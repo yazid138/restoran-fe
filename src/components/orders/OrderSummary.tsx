@@ -27,7 +27,6 @@ interface OrderSummaryProps {
   onSubmit?: () => void;
   isSubmitting: boolean;
   onCloseOrder?: () => void;
-  onPrintReceipt?: () => void;
 }
 
 export default function OrderSummary({
@@ -38,7 +37,6 @@ export default function OrderSummary({
   onSubmit,
   isSubmitting,
   onCloseOrder,
-  onPrintReceipt,
 }: OrderSummaryProps & {
   existingItems?: OrderItem[];
   onRemoveExistingItem?: (itemId: number) => void;
@@ -229,19 +227,6 @@ export default function OrderSummary({
       )}
 
       <Box sx={{ mt: 2, display: "flex", gap: 2 }}>
-        {onPrintReceipt && (
-          <Button
-            variant="outlined"
-            fullWidth
-            size="large"
-            onClick={onPrintReceipt}
-            startIcon={<Print />}
-            sx={{ borderRadius: 2 }}
-          >
-            Cetak
-          </Button>
-        )}
-
         {onCloseOrder && (
           <Button
             variant="contained"
