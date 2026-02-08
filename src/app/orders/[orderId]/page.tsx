@@ -24,10 +24,6 @@ import {
 import { useSession } from "next-auth/react";
 import CloseOrderDialog from "@/components/orders/CloseOrderDialog";
 import { generateReceipt } from "@/utils/printReceipt";
-import {
-  CheckCircle as CheckCircleIcon,
-  Print as PrintIcon,
-} from "@mui/icons-material";
 import { Food } from "@/types/food";
 import MenuItemCard from "@/components/orders/MenuItemCard";
 import OrderSummary from "@/components/orders/OrderSummary";

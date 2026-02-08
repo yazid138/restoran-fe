@@ -75,7 +75,7 @@ export default function OrderSummary({
 
       <Divider sx={{ my: 2 }} />
 
-      <List sx={{ maxHeight: 400, overflow: "auto" }}>
+      <List sx={{ maxHeight: 500, overflow: "auto" }}>
         {/* Existing Items Section */}
         {existingItems.length > 0 && (
           <>
@@ -91,9 +91,10 @@ export default function OrderSummary({
                 key={`existing-${item.id}-${item.price}`} // Unique key fix
                 sx={{
                   px: 0,
-                  bgcolor: "action.selected",
-                  borderRadius: 1,
-                  mb: 1,
+                  "&:hover": {
+                    bgcolor: "action.hover",
+                    borderRadius: 1,
+                  },
                 }}
                 secondaryAction={
                   onRemoveExistingItem && (
@@ -126,7 +127,7 @@ export default function OrderSummary({
                 />
               </ListItem>
             ))}
-            <Divider sx={{ my: 2 }} />
+            {items.length > 0 && <Divider sx={{ my: 2 }} />}
           </>
         )}
 
