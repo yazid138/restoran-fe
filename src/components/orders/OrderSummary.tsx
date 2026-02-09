@@ -27,6 +27,7 @@ interface OrderSummaryProps {
   onSubmit?: () => void;
   isSubmitting: boolean;
   onCloseOrder?: () => void;
+  onPrintOrder?: () => void;
 }
 
 export default function OrderSummary({
@@ -37,6 +38,7 @@ export default function OrderSummary({
   onSubmit,
   isSubmitting,
   onCloseOrder,
+  onPrintOrder,
 }: OrderSummaryProps & {
   existingItems?: OrderItem[];
   onRemoveExistingItem?: (itemId: number) => void;
@@ -194,21 +196,19 @@ export default function OrderSummary({
 
       <Divider sx={{ my: 2 }} />
 
-      <Box sx={{ mb: 3 }}>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
-        >
-          <Typography variant="h6" fontWeight="bold">
-            Total:
-          </Typography>
-          <Typography variant="h5" color="primary" fontWeight="bold">
-            {formatPrice(total)}
-          </Typography>
-        </Box>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
+        <Typography variant="h6" fontWeight="bold">
+          Total:
+        </Typography>
+        <Typography variant="h5" color="primary" fontWeight="bold">
+          {formatPrice(total)}
+        </Typography>
       </Box>
 
       {onSubmit && (
@@ -218,7 +218,7 @@ export default function OrderSummary({
           size="large"
           onClick={onSubmit}
           disabled={isSubmitting || items.length === 0}
-          sx={{ borderRadius: 2 }}
+          sx={{ borderRadius: 2, mb: 3 }}
           startIcon={
             isSubmitting ? <CircularProgress size={20} color="inherit" /> : null
           }
@@ -227,7 +227,21 @@ export default function OrderSummary({
         </Button>
       )}
 
-      <Box sx={{ mt: 2, display: "flex", gap: 2 }}>
+      {(onPrintOrder || onCloseOrder) && <Box sx={{ mt: 2, display: "flex", gap: 2 }}>
+        {onPrintOrder && (
+          <Button
+            variant="contained"
+            color="success"
+            fullWidth
+            size="large"
+            onClick={onPrintOrder}
+            disabled={isSubmitting}
+            startIcon={<Print />}
+            sx={{ borderRadius: 2 }}
+          >
+            Cetak Struk
+          </Button>
+        )}
         {onCloseOrder && (
           <Button
             variant="contained"
@@ -242,7 +256,7 @@ export default function OrderSummary({
             Selesai
           </Button>
         )}
-      </Box>
+      </Box>}
     </Paper>
   );
 }

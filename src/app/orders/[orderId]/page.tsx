@@ -213,6 +213,10 @@ export default function OrderPage() {
     }
   };
 
+  const handlePrintOrder = () => {
+    if (order) generateReceipt(order, session?.user);
+  };
+
   if (isFoodsLoading || isOrderLoading) {
     return (
       <Box sx={{ minHeight: "100vh", bgcolor: "background.default", py: 4 }}>
@@ -354,10 +358,12 @@ export default function OrderPage() {
                       food={food}
                       quantity={cartItem?.quantity || 0}
                       onAdd={
-                        !isCashier ? () => handleAddToCart(food) : undefined
+                        !isCashier && order.status === "open"
+                          ? () => handleAddToCart(food)
+                          : undefined
                       }
                       onRemove={
-                        !isCashier
+                        !isCashier && order.status === "open"
                           ? () => handleRemoveFromCart(food.id)
                           : undefined
                       }
@@ -399,13 +405,22 @@ export default function OrderPage() {
               }))}
               onRemoveItem={handleRemoveItemCompletely}
               onRemoveExistingItem={
-                !isCashier ? handleRemoveExistingItem : undefined
+                !isCashier && order.status === "open"
+                  ? handleRemoveExistingItem
+                  : undefined
               }
-              onSubmit={!isCashier ? handleSendToKitchen : undefined}
+              onSubmit={!isCashier && order.status === "open"
+                ? handleSendToKitchen
+                : undefined}
               isSubmitting={isSubmitting}
               onCloseOrder={
                 isCashier && order.status === "open"
                   ? handleCloseOrderClick
+                  : undefined
+              }
+              onPrintOrder={
+                order.status === "closed"
+                  ? handlePrintOrder
                   : undefined
               }
             />
