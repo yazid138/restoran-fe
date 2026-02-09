@@ -218,7 +218,7 @@ export default function OrderSummary({
           size="large"
           onClick={onSubmit}
           disabled={isSubmitting || items.length === 0}
-          sx={{ borderRadius: 2, mb: 3 }}
+          sx={{ borderRadius: 2, mt: 3 }}
           startIcon={
             isSubmitting ? <CircularProgress size={20} color="inherit" /> : null
           }
